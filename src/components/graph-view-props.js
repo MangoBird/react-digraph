@@ -15,6 +15,7 @@
   limitations under the License.
 */
 
+import { Component } from 'react';
 import { type LayoutEngineType } from '../utilities/layout-engine/layout-engine-types';
 import { type IEdge } from './edge';
 import { type INode } from './node';
@@ -96,6 +97,8 @@ export type IGraphViewProps = {
     selected: boolean,
     hovered: boolean
   ) => any,
+  NodeComp?: Component,
+  EdgeComp?: Component,
   afterRenderEdge?: (
     id: string,
     element: any,
@@ -104,6 +107,7 @@ export type IGraphViewProps = {
     isEdgeSelected: boolean
   ) => void,
   renderNodeText?: (data: any, id: string | number, isSelected: boolean) => any,
+  NodeTextComp?: Component,
   rotateEdgeHandle?: boolean,
   centerNodeOnMove?: boolean,
   initialBBox?: IBBox,

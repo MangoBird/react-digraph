@@ -99,7 +99,27 @@ declare module 'react-digraph' {
     edges: Map<string, IEdge> | null 
   };
 
-  export const Edge: React.Component<IEdgeProps>;
+  export const Edge: React.ComponentClass<IEdgeProps>;
+  
+  export type INodeCompProps = {
+    data: any,
+    nodeKey: string,
+    nodeTypes: any,
+    nodeSubtypes: any,
+    nodeSize?: number,
+    nodeWidth?: number,
+    nodeHeight?: number,
+    selected: boolean,
+    hovered: boolean,
+    [key: string]: any 
+  }
+
+  export type INodeTextCompProps = {
+    data: any,
+    nodeTypes: any,
+    isSelected: boolean,
+    maxTitleChars?: number,
+  }
 
   export type IGraphViewProps = {
     allowMultiselect?: boolean;
@@ -173,6 +193,9 @@ declare module 'react-digraph' {
     rotateEdgeHandle?: boolean;
     centerNodeOnMove?: boolean;
     initialBBox?: IBBox;
+    NodeComp?: React.ComponentClass<INodeCompProps> | React.FC<INodeCompProps>;
+    NodeTextComp?: React.ComponentClass<INodeTextCompProps> | React.FC<INodeTextCompProps>;
+    EdgeComp?: React.ComponentClass<IEdgeProps> | React.FC<IEdgeProps>;
   };
 
   export type IGraphInput = {

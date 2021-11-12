@@ -94,6 +94,7 @@ class GraphView extends React.Component<IGraphViewProps, IGraphViewState> {
     zoomDur: 750,
     rotateEdgeHandle: true,
     centerNodeOnMove: true,
+    EdgeComp: Edge,
   };
 
   static getDerivedStateFromProps(
@@ -1493,6 +1494,8 @@ class GraphView extends React.Component<IGraphViewProps, IGraphViewState> {
       nodeKey,
       maxTitleChars,
       centerNodeOnMove,
+      NodeComp,
+      NodeTextComp,
     } = this.props;
 
     return (
@@ -1518,6 +1521,8 @@ class GraphView extends React.Component<IGraphViewProps, IGraphViewState> {
         viewWrapperElem={this.viewWrapper.current}
         centerNodeOnMove={centerNodeOnMove}
         maxTitleChars={maxTitleChars}
+        NodeComp={NodeComp}
+        NodeTextComp={NodeTextComp}
       />
     );
   };
@@ -1600,7 +1605,7 @@ class GraphView extends React.Component<IGraphViewProps, IGraphViewState> {
   }
 
   getEdgeComponent = (edge: IEdge | any) => {
-    const { rotateEdgeHandle } = this.props;
+    const { rotateEdgeHandle, EdgeComp } = this.props;
     const sourceNodeMapNode = this.getNodeById(edge.source);
     const sourceNode = sourceNodeMapNode?.node;
     const targetNodeMapNode = this.getNodeById(edge.target);
@@ -1613,7 +1618,7 @@ class GraphView extends React.Component<IGraphViewProps, IGraphViewState> {
     }
 
     return (
-      <Edge
+      <EdgeComp
         data={edge}
         edgeTypes={edgeTypes}
         edgeHandleSize={edgeHandleSize}

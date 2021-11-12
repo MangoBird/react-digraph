@@ -22,6 +22,7 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  Component,
 } from 'react';
 // This works in Typescript but causes an import loop for Flowtype. We'll just use `any` below.
 // import { type LayoutEngine } from '../utilities/layout-engine/layout-engine-config';
@@ -77,6 +78,8 @@ type INodeProps = {
   viewWrapperElem: HTMLDivElement,
   centerNodeOnMove?: boolean,
   maxTitleChars?: number,
+  NodeComp?: Component,
+  NodeTextComp?: Component,
 };
 
 function Node({
@@ -101,6 +104,8 @@ function Node({
   onNodeMove = () => {},
   onNodeSelected = () => {},
   onNodeUpdate = () => Promise.resolve(),
+  NodeComp = NodeShape,
+  NodeTextComp = NodeText,
 }: INodeProps) {
   const draggingEdge = useRef(false);
   const [hovered, setHovered] = useState(false);
@@ -282,7 +287,7 @@ function Node({
       {renderNode ? (
         renderNode(nodeRef, data, data[nodeKey], isSelected, hovered)
       ) : (
-        <NodeShape
+        <NodeComp
           data={data}
           nodeKey={nodeKey}
           nodeTypes={nodeTypes}
@@ -297,7 +302,7 @@ function Node({
       {renderNodeText ? (
         renderNodeText(data, id, isSelected)
       ) : (
-        <NodeText
+        <NodeTextComp
           data={data}
           nodeTypes={nodeTypes}
           isSelected={isSelected}
